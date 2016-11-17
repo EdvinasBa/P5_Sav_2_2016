@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace _2_Uzduotis
@@ -11,9 +8,6 @@ namespace _2_Uzduotis
     {
         static void Main(string[] args)
         {
-           // System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("lt-LT");
-         //   System.Threading.Thread.CurrentThread.CurrentCulture = ci;
-
             string[] text = ReadFile("Duomenys.txt");
             string[] original = new string[text.Length];
 
