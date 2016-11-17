@@ -1,0 +1,2 @@
+﻿4 savarankiško darbo užduotis.
+ Parašykite programą, kuri pašalintų iš teksto nurodytus žodžius su už jų esančiais skyrikliais.
