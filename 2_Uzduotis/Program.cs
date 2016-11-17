@@ -15,12 +15,22 @@ namespace _2_Uzduotis
             RemoveLongComment(ref text);
             RemoveRegularComments(ref text);
             PrintToConsole(text);
+            ResultsToFile("Rezultatai.txt", text);
             Console.ReadLine();
         }
         public static string[] ReadFile(string fName)
         {
             string[] line = File.ReadAllLines(@fName);
             return line; 
+        }
+        public static void ResultsToFile(string fName, string[] text)
+        {
+            using (StreamWriter writer = new StreamWriter(fName))
+            {
+                foreach (string line in text)
+                    if (line != null)
+                        writer.WriteLine(line);
+            }
         }
         public static void RemoveRegularComments(ref string[] text)
         {
@@ -68,6 +78,7 @@ namespace _2_Uzduotis
                         {
                             endLineIndex = i;
                             endIndex = j;
+                            text[i] = line.Remove(0,j+2);
                             inComment = false;
                         }
                         else
