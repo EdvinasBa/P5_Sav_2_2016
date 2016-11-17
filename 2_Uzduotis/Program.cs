@@ -28,7 +28,7 @@ namespace _2_Uzduotis
             using (StreamWriter writer = new StreamWriter(fName))
             {
                 foreach (string line in text)
-                    if (line != null)
+                   if (!string.IsNullOrWhiteSpace(line))
                         writer.WriteLine(line);
             }
         }
