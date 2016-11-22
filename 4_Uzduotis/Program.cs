@@ -31,13 +31,10 @@ namespace _4_Uzduotis
         {
             for (int i = 0; i < text.Length; i++)
             {
-                List<int[]> limitList = new List<int[]>();
+                List<string> badWordList = new List<string>();
                 bool falseWord = false;
-                int count = 0;
-                int tempLineShorter = 0;
                 for (int j = 0; j <= text[i].Length - word.Length; j++)
                 {
-                    //Console.WriteLine("Pradedu nuo {0}", j);
                     string temp = word;
                     falseWord = false;
                     for (int k = 0; k < word.Length && !falseWord; k++)
@@ -48,19 +45,15 @@ namespace _4_Uzduotis
                     if (j + word.Length < text[i].Length && char.IsLetterOrDigit(text[i][j + word.Length]))
                         falseWord = true;
                     if (!falseWord)
-                        count++;
-                    if (!falseWord)
                     {
                         j += word.Length;
                         while (j < text[i].Length && (char.IsPunctuation(text[i][j]) || text[i][j] == ' '))
                         {
                             temp += text[i][j];
-                            if (text[i][j] == ' ')
-                                temp += ' ';
                             j++;
                         }
                         int begin = j - temp.Length;
-                        string removed = "";
+                        //Printing to console.
                         for (int x = 0; x < text[i].Length; x++)
                         {
                             if (x >= begin && x < j)
@@ -68,19 +61,16 @@ namespace _4_Uzduotis
                             Console.Write(text[i][x]);
                             Console.ForegroundColor = ConsoleColor.Gray;
                         }
-                        limitList.Add(new int[] { begin, j });
+                        //Adding that naughty word
+                        badWordList.Add(temp);
                         Console.WriteLine();
-                       // tempLineShorter += temp.Length;
                     }
                 }
-                string tempLine = "";
-                //foreach(int[] limit in limitList)
-                //{
-                  //  tempLine = text[i];
-                    //tempLine = tempLine.Remove(limit[0], limit[1] - limit[0]);
-                //}//
-                text[i] = tempLine;
-                //Console.WriteLine(count);
+                foreach(string badWord in badWordList)
+                {
+                    Console.WriteLine(badWord);
+                    text[i] = text[i].Replace(badWord,"");
+                }
             }
         }
     }
