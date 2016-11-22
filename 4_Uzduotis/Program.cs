@@ -11,7 +11,7 @@ namespace _4_Uzduotis
         static void Main(string[] args)
         {
             string[] text = ReadFile("Duomenys.txt");
-            removeWords(ref text, "tada");
+            remoweWord(ref text, "tada");
             WriteFile("Rezultatai.txt", text);
         }
         public static string[] ReadFile(string fName)
@@ -26,30 +26,61 @@ namespace _4_Uzduotis
                 results.WriteLine(line);
             results.Close();
         }
-        public static void removeWords(ref string[] text, string word)
+
+        public static void remoweWord(ref string[] text, string word)
         {
-            char[] punctuation = new char[] { ',', '.', '!', '?', ';', ':', '-', '"', '(', ')'};
-            int count = 0;
             for (int i = 0; i < text.Length; i++)
             {
-                word = word.Trim();
-                if (text[i].Contains(word))
+                List<int[]> limitList = new List<int[]>();
+                bool falseWord = false;
+                int count = 0;
+                int tempLineShorter = 0;
+                for (int j = 0; j <= text[i].Length - word.Length; j++)
                 {
-                    foreach(char ch in punctuation)
+                    //Console.WriteLine("Pradedu nuo {0}", j);
+                    string temp = word;
+                    falseWord = false;
+                    for (int k = 0; k < word.Length && !falseWord; k++)
                     {
-                        string newWord = word + ch;
-                        if (text[i].Contains(newWord))
+                        if (text[i][j + k] != word[k])
+                            falseWord = true;
+                    }
+                    if (j + word.Length < text[i].Length && char.IsLetterOrDigit(text[i][j + word.Length]))
+                        falseWord = true;
+                    if (!falseWord)
+                        count++;
+                    if (!falseWord)
+                    {
+                        j += word.Length;
+                        while (j < text[i].Length && (char.IsPunctuation(text[i][j]) || text[i][j] == ' '))
                         {
-                            int wordIndex = text[i].IndexOf(newWord);
-                            if (wordIndex != 0)
-                            {
-                                if (text[i].Length != wordIndex + newWord.Length && text[i].Substring(wordIndex - 1, 1) == " ")
-                                    newWord += ' ';
-                            }
-                            text[i] = text[i].Remove(wordIndex, newWord.Length);
+                            temp += text[i][j];
+                            if (text[i][j] == ' ')
+                                temp += ' ';
+                            j++;
                         }
+                        int begin = j - temp.Length;
+                        string removed = "";
+                        for (int x = 0; x < text[i].Length; x++)
+                        {
+                            if (x >= begin && x < j)
+                                Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write(text[i][x]);
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                        }
+                        limitList.Add(new int[] { begin, j });
+                        Console.WriteLine();
+                       // tempLineShorter += temp.Length;
                     }
                 }
+                string tempLine = "";
+                //foreach(int[] limit in limitList)
+                //{
+                  //  tempLine = text[i];
+                    //tempLine = tempLine.Remove(limit[0], limit[1] - limit[0]);
+                //}//
+                text[i] = tempLine;
+                //Console.WriteLine(count);
             }
         }
     }
