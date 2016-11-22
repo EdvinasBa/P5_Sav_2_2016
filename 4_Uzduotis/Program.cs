@@ -11,7 +11,10 @@ namespace _4_Uzduotis
         static void Main(string[] args)
         {
             string[] text = ReadFile("Duomenys.txt");
-            remoweWord(ref text, "tada");
+            if (args.Length == 0)
+                remoweWord(ref text, "labas");
+            else
+                remoweWord(ref text, args[0]);
             WriteFile("Rezultatai.txt", text);
         }
         public static string[] ReadFile(string fName)
@@ -31,6 +34,10 @@ namespace _4_Uzduotis
         {
             for (int i = 0; i < text.Length; i++)
             {
+                Console.Write("Eilute: ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(i);
+                Console.ForegroundColor = ConsoleColor.Gray;
                 //List of words that should be removed
                 List<string> badWordList = new List<string>();
                 //If the algorithm finds that given and current "word" matches this is true
@@ -73,7 +80,7 @@ namespace _4_Uzduotis
                 }
                 foreach(string badWord in badWordList)
                 {
-                    Console.WriteLine(badWord);
+                    //Console.WriteLine(badWord);
                     text[i] = text[i].Replace(badWord,"");
                 }
             }
