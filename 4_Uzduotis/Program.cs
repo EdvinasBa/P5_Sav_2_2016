@@ -31,10 +31,13 @@ namespace _4_Uzduotis
         {
             for (int i = 0; i < text.Length; i++)
             {
+                //List of words that should be removed
                 List<string> badWordList = new List<string>();
+                //If the algorithm finds that given and current "word" matches this is true
                 bool falseWord = false;
                 for (int j = 0; j <= text[i].Length - word.Length; j++)
                 {
+                    //Reset everything
                     string temp = word;
                     falseWord = false;
                     for (int k = 0; k < word.Length && !falseWord; k++)
@@ -42,8 +45,10 @@ namespace _4_Uzduotis
                         if (text[i][j + k] != word[k])
                             falseWord = true;
                     }
+                    //Check if the given word is a part of other word
                     if (j + word.Length < text[i].Length && char.IsLetterOrDigit(text[i][j + word.Length]))
                         falseWord = true;
+                    //Add punctuation to bad word
                     if (!falseWord)
                     {
                         j += word.Length;
