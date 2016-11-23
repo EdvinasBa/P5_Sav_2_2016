@@ -12,9 +12,9 @@ namespace _4_Uzduotis
         {
             string[] text = ReadFile("Duomenys.txt");
             if (args.Length == 0)
-                remoweWord(ref text, "labas");
+                removeWord(ref text, "labas");
             else
-                remoweWord(ref text, args[0]);
+                removeWord(ref text, args[0]);
             WriteFile("Rezultatai.txt", text);
         }
         public static string[] ReadFile(string fName)
@@ -30,7 +30,7 @@ namespace _4_Uzduotis
             results.Close();
         }
 
-        public static void remoweWord(ref string[] text, string word)
+        public static void removeWord(ref string[] text, string word)
         {
             for (int i = 0; i < text.Length; i++)
             {
